@@ -1,0 +1,13 @@
+Store ID,Store Name,City,State,Region,Store Type
+ST001,Maple Street Store,New York,NY,North,Offline
+ST002,Sunset Boulevard Store,Los Angeles,CA,West,Offline
+ST003,Lakeview Store,Chicago,IL,Central,Offline
+ST004,Riverfront Store,Houston,TX,South,Offline
+ST005,Eastgate Store,Philadelphia,PA,East,Offline
+ST006,Online - North,New York,NY,North,Online
+ST007,Online - West,Los Angeles,CA,West,Online
+ST008,Online - South,Houston,TX,South,Online
+ST009,Online - East,Boston,MA,East,Online
+ST010,Online - Central,Chicago,IL,Central,Online
+ST011,Harbor View Store,Seattle,WA,West,Offline
+ST012,Downtown Store,Boston,MA,East,Offline

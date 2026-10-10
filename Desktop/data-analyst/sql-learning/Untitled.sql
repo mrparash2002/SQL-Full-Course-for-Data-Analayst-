@@ -33,34 +33,6 @@ values
 #Now recheck all the data we have inserted
 select * from students;
 
-#what if i have to add a column in students table
-#ALter
-alter table students add column email varchar(50) unique; #unique is required to store unique email addresses
-insert into students (email)
-values ("mrparash001@gmail.com"), ("rahul02@gmail.com");
-#check the values 
-select * from students;
-#due to auto increment my new emails are being stored in new rows so we will drop it 
 
-alter table students drop column email;
-
-
-use sql_learning;
-#now use update
-alter table students add column email varchar(70) unique;
-update students set email = "parashchhetri01@gmail.com" where student_id = 1;
-
-
-#rename a table
-rename table students to students_info;
-
-#only one student should have an email so we will check
-select * from students_info;
 #Till now we have done DDL (Data Definition Language), DML (Data Manipulation Language)
-
-
-
-#Truncate :to instantly delete all rows from a table while keeping the table's structure, columns, and indexes intact
-#Mostly avoid drop table but we can use truncate to remove info but keep the columns in a proper structure
-truncate table students_info;
-select * from students_info;
+#and DQL (Data Query Language). other things will be done vastly in another query/file
