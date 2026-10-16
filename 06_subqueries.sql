@@ -66,4 +66,35 @@ order by Date desc limit 01);
 
 
 
+#More practice qsns 
+/* Find all transactions in retail.sales_transactions where 
+the Total Amount ($) is strictly greater than the average transaction amount of all transactions.*/
+select `Transaction ID`, `Date`, `Total Amount ($)` from retail.sales_transactions
+where `Total Amount ($)` >
+(select avg(`Total Amount ($)`) as avg_amount from retail.sales_transactions);
+
+
+# Find all Product Names from retail.products that belong to the same category as the product named 'Wireless Mouse'.
+# (Exclude 'Wireless Mouse' itself from the final output).
+select `Product Name` from retail.products
+where `Category` = (select `Category` from retail.products
+where `Product Name` = "Wireless Mouse") 
+and `Product Name` <> 'Wireless Mouse';
+
+# Find all Store Names from retail.stores that have never recorded a single sale in retail.sales_transactions.
+select `Store ID`, `Store Name` from retail.stores
+where `Store ID` not in (select distinct `Store ID`from retail.sales_transactions
+where `Transaction ID` is not null)
+;
+
+#Find all Customer Names from retail.customers who have bought an item in the 'Electronics' category.
+select `Customer Name` from retail.customers as c
+inner join retail.sales_transactions as s
+on c.`Customer ID` = s.`Customer ID`
+where `Transaction ID` in 
+(select `Transaction ID` from retail.sales_transactions
+where `Product ID` in (select `Product ID` from retail.products
+where Category = 'Electronics') and `Transaction ID` is not null);
+
+
 

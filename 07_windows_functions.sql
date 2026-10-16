@@ -48,4 +48,31 @@ select sum(`Total Amount ($)`) as totals,Date,
  group by Date
  order by Date desc;
 
+# 4.  Find all transactions from the most recent date in the dataset using a subquery in WHERE
+select max(Date) as Date , dense_rank() over( order by Date desc) as rankings
+from retail.sales_transactions
+group by Date
+order by Date desc;
+/* where date in (select max(Date) from retail.sales_transactions
+order by max(date) desc);
+
+
+
+/* BONUS:  Nest a subquery inside another subquery. Find the name of the salesperson who sold the highest value single transaction 
+— inner query finds the Transaction ID, middle query finds the Salesman ID, outer query finds the name.*/
+
+select `Salesman Name` from retail.salespeople
+where `Salesman ID` = (select `Salesman ID` from retail.salespeople
+where `Salesman ID` = (
+select `Salesman ID`from retail.sales_transactions
+where `Total Amount ($)` = (select max(`Total Amount ($)`))
+limit 1)
+);
+
+
+
+
+
+
+
 
