@@ -76,6 +76,27 @@ where st.`Total Amount ($)` > avg(st.`Total Amount ($)`)
 group by c.`Customer ID`, c.`Customer Name`;
 
 
+#Q4.  Which stores have a higher average transaction value than the overall average? Show Store Name and Store Type.
+select s.`Store ID`,s.`Store Name`,s.`Store Type`, avg(st.`Total Amount ($)`)
+#rank() over(order by avg(st.`Total Amount ($)`) desc) as ranking
+from retail.stores as s
+inner join retail.sales_transactions as st
+on st.`Store ID` = s.`Store ID`
+group by s.`Store ID`, s.`Store Name`, s.`Store Type`
+having avg(st.`Total Amount ($)`) in (select avg(st.`Total Amount ($)`) from retail.sales_transactions)
+order by avg(st.`Total Amount ($)`) desc limit 01;
+
+
+#Q5.  For each month in the dataset, show total revenue and how it compares to the previous month using LAG().
+with monthly_rev as ( select Year(`Date`) as yearly_rev, month(`Date`) as monthly_rev,
+sum(`Total Amount ($)`) as revenue from retail.sales_transactions
+group by yearly_rev, monthly_rev)
+select yearly_rev, monthly_rev, revenue,
+lag(revenue) over(order by yearly_rev, monthly_rev) as previpus_month_revenue
+from monthly_rev
+order by yearly_rev, monthly_rev;
+
+
 
 
 
